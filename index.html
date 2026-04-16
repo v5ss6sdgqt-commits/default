@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Mercer — Photography</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">AM</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img
+        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&auto=format&fit=crop&q=80"
+        alt="Hero landscape"
+        loading="eager"
+      />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Visual storytelling</p>
+      <h1 class="hero-title">Alex Mercer</h1>
+      <p class="hero-subtitle">Landscape &amp; Portrait Photographer</p>
+      <a href="#portfolio" class="btn btn-outline">View Work</a>
+    </div>
+    <a href="#portfolio" class="hero-scroll" aria-label="Scroll down">
+      <span class="scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ── PORTFOLIO ──────────────────────────────────────────── -->
+  <section id="portfolio">
+    <div class="container">
+      <header class="section-header">
+        <p class="section-eyebrow">Selected Work</p>
+        <h2 class="section-title">Portfolio</h2>
+      </header>
+
+      <!-- Filter pills -->
+      <div class="filter-bar" role="group" aria-label="Filter gallery">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="landscape">Landscape</button>
+        <button class="filter-btn" data-filter="portrait">Portrait</button>
+        <button class="filter-btn" data-filter="urban">Urban</button>
+        <button class="filter-btn" data-filter="abstract">Abstract</button>
+      </div>
+
+      <!-- Gallery grid -->
+      <div class="gallery" id="gallery">
+
+        <div class="gallery-item" data-category="landscape" data-index="0">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=75" alt="Mountain sunrise" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Mountain Sunrise</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="portrait" data-index="1">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=75" alt="Golden hour portrait" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Golden Hour</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="urban" data-index="2">
+          <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop&q=75" alt="City lights" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">City Lights</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="abstract" data-index="3">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=75" alt="Light trails" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Abstract</span>
+            <span class="gallery-title">Light Trails</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="landscape" data-index="4">
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&auto=format&fit=crop&q=75" alt="Mirror lake" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Mirror Lake</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="portrait" data-index="5">
+          <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800&auto=format&fit=crop&q=75" alt="Studio portrait" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Studio Session</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="urban" data-index="6">
+          <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&auto=format&fit=crop&q=75" alt="Rainy street" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">Rainy Street</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="landscape" data-index="7">
+          <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&auto=format&fit=crop&q=75" alt="Desert dunes" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Desert Dunes</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="abstract" data-index="8">
+          <img src="https://images.unsplash.com/photo-1520034475321-cbe63696469a?w=800&auto=format&fit=crop&q=75" alt="Wave motion" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Abstract</span>
+            <span class="gallery-title">Wave Motion</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="portrait" data-index="9">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=75" alt="Natural light portrait" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Natural Light</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="urban" data-index="10">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format&fit=crop&q=75" alt="Architecture" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">Architecture</span>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="landscape" data-index="11">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop&q=75" alt="Forest fog" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Forest Fog</span>
+          </div>
+        </div>
+
+      </div><!-- /.gallery -->
+    </div>
+  </section>
+
+  <!-- ── LIGHTBOX ───────────────────────────────────────────── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous photo">&#8592;</button>
+    <button class="lb-next" aria-label="Next photo">&#8594;</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="" />
+      <div class="lb-caption">
+        <span id="lb-category"></span>
+        <span id="lb-title"></span>
+      </div>
+    </div>
+    <div class="lb-counter"><span id="lb-current">1</span> / <span id="lb-total">12</span></div>
+  </div>
+  <div id="lightbox-backdrop" hidden></div>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-image">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&auto=format&fit=crop&q=80"
+          alt="Alex Mercer photographer"
+          loading="lazy"
+        />
+        <div class="about-image-accent"></div>
+      </div>
+      <div class="about-content">
+        <p class="section-eyebrow">About Me</p>
+        <h2 class="section-title">Capturing moments,<br /><em>crafting stories.</em></h2>
+        <p>
+          Based in Portland, Oregon, I've spent the last decade chasing light across
+          five continents. My work lives at the intersection of documentary honesty
+          and fine-art composition — every frame a quiet conversation between subject
+          and environment.
+        </p>
+        <p>
+          I shoot primarily with medium-format film and full-frame digital, believing
+          that the right tool should be invisible, leaving only the image.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Continents</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">200+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary">Work Together</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <p class="section-eyebrow">Get In Touch</p>
+        <h2 class="section-title">Let's create<br /><em>something beautiful.</em></h2>
+        <p>Available for editorial, commercial, and personal commissions worldwide.</p>
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:hello@alexmercer.photo">hello@alexmercer.photo</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Portland, Oregon — Available worldwide</span>
+          </li>
+        </ul>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="500px" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          </a>
+          <a href="#" aria-label="Behance" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9.5h8c1.5 0 2.5 1 2.5 2.5S11.5 14.5 10 14.5H2V6h7.5C11 6 12 7 12 8.5S11 11 9.5 11H2"/><path d="M15 8h7M15.5 12h6c0 2-1.5 3.5-3 3.5S15.5 14 15.5 12z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Project type or enquiry" />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        <p class="form-success" id="form-success" hidden>Thanks! I'll be in touch soon.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <span class="footer-logo">AM</span>
+      <p class="footer-copy">&copy; <span id="year"></span> Alex Mercer Photography. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
