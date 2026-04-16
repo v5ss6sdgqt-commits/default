@@ -17,8 +17,8 @@
   --accent-dark: #a07840;
   --white:       #ffffff;
 
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans:  'Inter', system-ui, sans-serif;
+  --font-serif: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 
   --nav-h:    72px;
   --radius:   4px;
@@ -203,12 +203,8 @@ button { cursor: pointer; background: none; border: none; font: inherit; color: 
 .hero-bg {
   position: absolute;
   inset: 0;
-}
-
-.hero-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background: linear-gradient(135deg,
+    #0f0c29 0%, #302b63 35%, #1a0533 60%, #0d2137 100%);
   transform: scale(1.05);
   animation: heroZoom 12s ease forwards;
 }
@@ -354,16 +350,29 @@ button { cursor: pointer; background: none; border: none; font: inherit; color: 
   animation: fadeUp 0.5s ease both;
 }
 
-.gallery-item img {
+.photo-bg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gallery-item:hover img {
+.gallery-item:hover .photo-bg {
   transform: scale(1.06);
 }
+
+/* ── Individual photo gradients ─────────────────────────── */
+.gi-1  .photo-bg { background: linear-gradient(135deg, #f093fb 0%, #c0392b 50%, #f7971e 100%); }
+.gi-2  .photo-bg { background: linear-gradient(135deg, #f6d365 0%, #f5a623 50%, #e55d87 100%); }
+.gi-3  .photo-bg { background: linear-gradient(160deg, #0f0c29 0%, #302b63 45%, #24243e 100%); }
+.gi-4  .photo-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 60%, #f093fb 100%); }
+.gi-5  .photo-bg { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 50%, #4facfe 100%); }
+.gi-6  .photo-bg { background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%); }
+.gi-7  .photo-bg { background: linear-gradient(160deg, #1c1c2e 0%, #16213e 50%, #0f3460 100%); }
+.gi-8  .photo-bg { background: linear-gradient(135deg, #f7971e 0%, #d4880a 40%, #c97b2d 100%); }
+.gi-9  .photo-bg { background: linear-gradient(135deg, #005c97 0%, #00c6ff 50%, #363795 100%); }
+.gi-10 .photo-bg { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 60%, #e07b5a 100%); }
+.gi-11 .photo-bg { background: linear-gradient(160deg, #232526 0%, #414345 100%); }
+.gi-12 .photo-bg { background: linear-gradient(135deg, #134e5e 0%, #447060 50%, #71b280 100%); }
 
 .gallery-overlay {
   position: absolute;
@@ -431,13 +440,13 @@ button { cursor: pointer; background: none; border: none; font: inherit; color: 
   gap: 1rem;
 }
 
-#lb-img {
-  max-height: calc(85vh - 60px);
-  max-width: 100%;
-  object-fit: contain;
+.lb-photo {
+  width: min(80vw, 900px);
+  height: min(65vh, 600px);
   border-radius: var(--radius);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   animation: lbImageIn 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 @keyframes lbImageIn {
@@ -518,13 +527,13 @@ button { cursor: pointer; background: none; border: none; font: inherit; color: 
   position: relative;
 }
 
-.about-image img {
+.about-photo {
   width: 100%;
   aspect-ratio: 4 / 5;
-  object-fit: cover;
   border-radius: var(--radius);
   position: relative;
   z-index: 1;
+  background: linear-gradient(145deg, #3a1c71 0%, #823a5c 50%, #c47a3a 100%);
 }
 
 .about-image-accent {

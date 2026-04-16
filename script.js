@@ -77,14 +77,14 @@ filterBtns.forEach(btn => {
 /* ── LIGHTBOX ────────────────────────────────────────────── */
 const lightbox   = document.getElementById('lightbox');
 const lbBackdrop = document.getElementById('lightbox-backdrop');
-const lbImg      = document.getElementById('lb-img');
+const lbPhoto    = document.getElementById('lb-photo');
 const lbCategory = document.getElementById('lb-category');
 const lbTitle    = document.getElementById('lb-title');
 const lbCurrent  = document.getElementById('lb-current');
 const lbTotal    = document.getElementById('lb-total');
 
-let currentIndex  = 0;
-let visibleItems  = [];
+let currentIndex = 0;
+let visibleItems = [];
 
 function openLightbox(index) {
   visibleItems = [...galleryItems].filter(i => !i.classList.contains('hidden'));
@@ -109,31 +109,31 @@ function showImage(idx) {
   currentIndex = idx;
 
   const item = visibleItems[idx];
-  const imgEl = item.querySelector('img');
 
-  // Animate out then in
-  lbImg.style.opacity = '0';
-  lbImg.style.transform = 'scale(0.95)';
+  // Animate out
+  lbPhoto.style.opacity   = '0';
+  lbPhoto.style.transform = 'scale(0.95)';
 
   setTimeout(() => {
-    lbImg.src = imgEl.src.replace(/w=800/, 'w=1400');
-    lbImg.alt = imgEl.alt;
+    // Copy gradient from the gallery item's photo-bg
+    const photoBg = item.querySelector('.photo-bg');
+    const gradient = getComputedStyle(photoBg).backgroundImage;
+    lbPhoto.style.backgroundImage = gradient;
+
     lbCategory.textContent = item.querySelector('.gallery-category').textContent;
     lbTitle.textContent    = item.querySelector('.gallery-title').textContent;
     lbCurrent.textContent  = idx + 1;
 
-    lbImg.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    lbImg.style.opacity = '1';
-    lbImg.style.transform = 'scale(1)';
+    lbPhoto.style.opacity   = '1';
+    lbPhoto.style.transform = 'scale(1)';
   }, 120);
 }
 
 // Open lightbox when a gallery item is clicked
 galleryItems.forEach(item => {
   item.addEventListener('click', () => {
-    visibleItems = [...galleryItems].filter(i => !i.classList.contains('hidden'));
-    const idx = visibleItems.indexOf(item);
-    openLightbox(idx);
+    const visible = [...galleryItems].filter(i => !i.classList.contains('hidden'));
+    openLightbox(visible.indexOf(item));
   });
 });
 
