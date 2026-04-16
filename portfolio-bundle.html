@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Mercer — Photography</title>
+  <style>
+/* ────────────────────────────────────────────────────────────
+   Photography Portfolio — Alex Mercer
+   ──────────────────────────────────────────────────────────── */
+
+/* ── RESET & TOKENS ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0a0a0a;
+  --bg-2:        #111111;
+  --bg-3:        #1a1a1a;
+  --surface:     #222222;
+  --border:      #2e2e2e;
+  --text:        #e8e8e8;
+  --text-muted:  #888888;
+  --accent:      #c9a96e;
+  --accent-dark: #a07840;
+  --white:       #ffffff;
+
+  --font-serif: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --nav-h:    72px;
+  --radius:   4px;
+  --trans:    0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a   { color: inherit; text-decoration: none; }
+ul  { list-style: none; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.container {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.section-title em { font-style: italic; color: var(--accent); }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: var(--trans);
+}
+
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.5);
+  color: var(--white);
+}
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--bg);
+  border-color: var(--white);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.btn-primary:hover {
+  background: var(--accent-dark);
+}
+
+.btn-full { width: 100%; justify-content: center; }
+
+/* ── NAVBAR ──────────────────────────────────────────────── */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  transition: background var(--trans), backdrop-filter var(--trans);
+}
+
+#navbar.scrolled {
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--trans);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform var(--trans);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--white);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 1.5px;
+  background: var(--white);
+  transition: var(--trans);
+  transform-origin: center;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── HERO ────────────────────────────────────────────────── */
+#hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    #0f0c29 0%, #302b63 35%, #1a0533 60%, #0d2137 100%);
+  transform: scale(1.05);
+  animation: heroZoom 12s ease forwards;
+}
+
+@keyframes heroZoom {
+  to { transform: scale(1); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.25) 0%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.75) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  animation: fadeUp 1.2s ease 0.3s both;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 2.5rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--white));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; transform: scaleY(1); }
+  50%      { opacity: 1;   transform: scaleY(1.2); }
+}
+
+/* ── PORTFOLIO SECTION ───────────────────────────────────── */
+#portfolio {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  background: var(--bg);
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: var(--trans);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0a0a0a;
+}
+
+/* Gallery grid */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  background: var(--bg-3);
+  transition: transform var(--trans), opacity var(--trans);
+}
+
+.gallery-item.hidden {
+  display: none;
+}
+
+.gallery-item.animate-in {
+  animation: fadeUp 0.5s ease both;
+}
+
+.photo-bg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover .photo-bg {
+  transform: scale(1.06);
+}
+
+/* ── Individual photo gradients ─────────────────────────── */
+.gi-1  .photo-bg { background: linear-gradient(135deg, #f093fb 0%, #c0392b 50%, #f7971e 100%); }
+.gi-2  .photo-bg { background: linear-gradient(135deg, #f6d365 0%, #f5a623 50%, #e55d87 100%); }
+.gi-3  .photo-bg { background: linear-gradient(160deg, #0f0c29 0%, #302b63 45%, #24243e 100%); }
+.gi-4  .photo-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 60%, #f093fb 100%); }
+.gi-5  .photo-bg { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 50%, #4facfe 100%); }
+.gi-6  .photo-bg { background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%); }
+.gi-7  .photo-bg { background: linear-gradient(160deg, #1c1c2e 0%, #16213e 50%, #0f3460 100%); }
+.gi-8  .photo-bg { background: linear-gradient(135deg, #f7971e 0%, #d4880a 40%, #c97b2d 100%); }
+.gi-9  .photo-bg { background: linear-gradient(135deg, #005c97 0%, #00c6ff 50%, #363795 100%); }
+.gi-10 .photo-bg { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 60%, #e07b5a 100%); }
+.gi-11 .photo-bg { background: linear-gradient(160deg, #232526 0%, #414345 100%); }
+.gi-12 .photo-bg { background: linear-gradient(135deg, #134e5e 0%, #447060 50%, #71b280 100%); }
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-category {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.gallery-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--white);
+}
+
+/* ── LIGHTBOX ────────────────────────────────────────────── */
+#lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
+}
+
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#lightbox[hidden], #lightbox-backdrop[hidden] { display: none; }
+
+.lb-inner {
+  max-width: min(90vw, 1100px);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lb-photo {
+  width: min(80vw, 900px);
+  height: min(65vh, 600px);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  animation: lbImageIn 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@keyframes lbImageIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lb-caption {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+#lb-category {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+#lb-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.lb-close {
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
+  font-size: 2rem;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: color var(--trans), transform var(--trans);
+  z-index: 1002;
+}
+.lb-close:hover { color: var(--white); transform: rotate(90deg); }
+
+.lb-prev, .lb-next {
+  position: fixed;
+  top: 50%; transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  padding: 1rem;
+  z-index: 1002;
+  transition: color var(--trans), transform var(--trans);
+}
+.lb-prev { left: 1rem; }
+.lb-next { right: 1rem; }
+.lb-prev:hover { color: var(--white); transform: translateY(-50%) translateX(-3px); }
+.lb-next:hover { color: var(--white); transform: translateY(-50%) translateX(3px); }
+
+.lb-counter {
+  position: fixed;
+  bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  z-index: 1002;
+}
+
+/* ── ABOUT SECTION ───────────────────────────────────────── */
+#about {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  background: var(--bg-2);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(145deg, #3a1c71 0%, #823a5c 50%, #c47a3a 100%);
+}
+
+.about-image-accent {
+  position: absolute;
+  inset: -1rem -1rem 1rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  opacity: 0.3;
+}
+
+.about-content p {
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.about-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin: 2.5rem 0 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── CONTACT SECTION ─────────────────────────────────────── */
+#contact {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  background: var(--bg);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.contact-info p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.contact-list li svg {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+.contact-list a:hover { color: var(--white); }
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  transition: var(--trans);
+}
+
+.social-link svg { width: 18px; height: 18px; }
+
+.social-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Contact form */
+.contact-form {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: border-color var(--trans), box-shadow var(--trans);
+  resize: none;
+  outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #e06060;
+}
+
+.form-success {
+  text-align: center;
+  color: var(--accent);
+  font-size: 0.9rem;
+  animation: fadeUp 0.5s ease;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+#footer {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-nav a {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--trans);
+}
+
+.footer-nav a:hover { color: var(--white); }
+
+/* ── SCROLL-REVEAL ───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .about-image-accent {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-110%);
+    transition: transform var(--trans);
+    z-index: 800;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-toggle { display: flex; }
+
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .about-stats { gap: 1.5rem; }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .lb-prev, .lb-next { display: none; }
+}
+
+@media (max-width: 420px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">AM</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Visual storytelling</p>
+      <h1 class="hero-title">Alex Mercer</h1>
+      <p class="hero-subtitle">Landscape &amp; Portrait Photographer</p>
+      <a href="#portfolio" class="btn btn-outline">View Work</a>
+    </div>
+    <a href="#portfolio" class="hero-scroll" aria-label="Scroll down">
+      <span class="scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ── PORTFOLIO ──────────────────────────────────────────── -->
+  <section id="portfolio">
+    <div class="container">
+      <header class="section-header">
+        <p class="section-eyebrow">Selected Work</p>
+        <h2 class="section-title">Portfolio</h2>
+      </header>
+
+      <!-- Filter pills -->
+      <div class="filter-bar" role="group" aria-label="Filter gallery">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="landscape">Landscape</button>
+        <button class="filter-btn" data-filter="portrait">Portrait</button>
+        <button class="filter-btn" data-filter="urban">Urban</button>
+        <button class="filter-btn" data-filter="abstract">Abstract</button>
+      </div>
+
+      <!-- Gallery grid -->
+      <div class="gallery" id="gallery">
+
+        <div class="gallery-item gi-1" data-category="landscape" data-index="0">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Mountain Sunrise</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-2" data-category="portrait" data-index="1">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Golden Hour</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-3" data-category="urban" data-index="2">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">City Lights</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-4" data-category="abstract" data-index="3">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Abstract</span>
+            <span class="gallery-title">Light Trails</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-5" data-category="landscape" data-index="4">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Mirror Lake</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-6" data-category="portrait" data-index="5">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Studio Session</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-7" data-category="urban" data-index="6">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">Rainy Street</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-8" data-category="landscape" data-index="7">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Desert Dunes</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-9" data-category="abstract" data-index="8">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Abstract</span>
+            <span class="gallery-title">Wave Motion</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-10" data-category="portrait" data-index="9">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Portrait</span>
+            <span class="gallery-title">Natural Light</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-11" data-category="urban" data-index="10">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Urban</span>
+            <span class="gallery-title">Architecture</span>
+          </div>
+        </div>
+
+        <div class="gallery-item gi-12" data-category="landscape" data-index="11">
+          <div class="photo-bg"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-category">Landscape</span>
+            <span class="gallery-title">Forest Fog</span>
+          </div>
+        </div>
+
+      </div><!-- /.gallery -->
+    </div>
+  </section>
+
+  <!-- ── LIGHTBOX ───────────────────────────────────────────── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous photo">&#8592;</button>
+    <button class="lb-next" aria-label="Next photo">&#8594;</button>
+    <div class="lb-inner">
+      <div id="lb-photo" class="lb-photo"></div>
+      <div class="lb-caption">
+        <span id="lb-category"></span>
+        <span id="lb-title"></span>
+      </div>
+    </div>
+    <div class="lb-counter"><span id="lb-current">1</span> / <span id="lb-total">12</span></div>
+  </div>
+  <div id="lightbox-backdrop" hidden></div>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-image">
+        <div class="about-photo"></div>
+        <div class="about-image-accent"></div>
+      </div>
+      <div class="about-content">
+        <p class="section-eyebrow">About Me</p>
+        <h2 class="section-title">Capturing moments,<br /><em>crafting stories.</em></h2>
+        <p>
+          Based in Portland, Oregon, I've spent the last decade chasing light across
+          five continents. My work lives at the intersection of documentary honesty
+          and fine-art composition — every frame a quiet conversation between subject
+          and environment.
+        </p>
+        <p>
+          I shoot primarily with medium-format film and full-frame digital, believing
+          that the right tool should be invisible, leaving only the image.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Continents</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">200+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary">Work Together</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <p class="section-eyebrow">Get In Touch</p>
+        <h2 class="section-title">Let's create<br /><em>something beautiful.</em></h2>
+        <p>Available for editorial, commercial, and personal commissions worldwide.</p>
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:hello@alexmercer.photo">hello@alexmercer.photo</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Portland, Oregon — Available worldwide</span>
+          </li>
+        </ul>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="500px" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          </a>
+          <a href="#" aria-label="Behance" class="social-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9.5h8c1.5 0 2.5 1 2.5 2.5S11.5 14.5 10 14.5H2V6h7.5C11 6 12 7 12 8.5S11 11 9.5 11H2"/><path d="M15 8h7M15.5 12h6c0 2-1.5 3.5-3 3.5S15.5 14 15.5 12z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Project type or enquiry" />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        <p class="form-success" id="form-success" hidden>Thanks! I'll be in touch soon.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <span class="footer-logo">AM</span>
+      <p class="footer-copy">&copy; <span id="year"></span> Alex Mercer Photography. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+'use strict';
+
+/* ── NAVBAR: scroll shadow + active link ─────────────────── */
+const navbar = document.getElementById('navbar');
+const sections = document.querySelectorAll('section[id], footer[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+const onScroll = () => {
+  // Scrolled class
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+
+  // Active nav link
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 120) {
+      current = sec.id;
+    }
+  });
+  navLinks.forEach(a => {
+    const matches = a.getAttribute('href') === `#${current}`;
+    a.classList.toggle('active', matches);
+  });
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ── MOBILE MENU ─────────────────────────────────────────── */
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu   = document.querySelector('.nav-links');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+// Close when a link is clicked
+navMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navMenu.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+/* ── GALLERY FILTERING ───────────────────────────────────── */
+const filterBtns  = document.querySelectorAll('.filter-btn');
+const galleryItems = document.querySelectorAll('.gallery-item');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    let delay = 0;
+
+    galleryItems.forEach(item => {
+      const matches = filter === 'all' || item.dataset.category === filter;
+      if (matches) {
+        item.classList.remove('hidden');
+        // Stagger animation
+        item.style.animationDelay = `${delay}ms`;
+        item.classList.remove('animate-in');
+        // Force reflow to restart animation
+        void item.offsetWidth;
+        item.classList.add('animate-in');
+        delay += 50;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  });
+});
+
+/* ── LIGHTBOX ────────────────────────────────────────────── */
+const lightbox   = document.getElementById('lightbox');
+const lbBackdrop = document.getElementById('lightbox-backdrop');
+const lbPhoto    = document.getElementById('lb-photo');
+const lbCategory = document.getElementById('lb-category');
+const lbTitle    = document.getElementById('lb-title');
+const lbCurrent  = document.getElementById('lb-current');
+const lbTotal    = document.getElementById('lb-total');
+
+let currentIndex = 0;
+let visibleItems = [];
+
+function openLightbox(index) {
+  visibleItems = [...galleryItems].filter(i => !i.classList.contains('hidden'));
+  currentIndex = index;
+  lbTotal.textContent = visibleItems.length;
+  showImage(currentIndex);
+  lightbox.hidden   = false;
+  lbBackdrop.hidden = false;
+  document.body.style.overflow = 'hidden';
+  lightbox.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden   = true;
+  lbBackdrop.hidden = true;
+  document.body.style.overflow = '';
+}
+
+function showImage(idx) {
+  if (idx < 0) idx = visibleItems.length - 1;
+  if (idx >= visibleItems.length) idx = 0;
+  currentIndex = idx;
+
+  const item = visibleItems[idx];
+
+  // Animate out
+  lbPhoto.style.opacity   = '0';
+  lbPhoto.style.transform = 'scale(0.95)';
+
+  setTimeout(() => {
+    // Copy gradient from the gallery item's photo-bg
+    const photoBg = item.querySelector('.photo-bg');
+    const gradient = getComputedStyle(photoBg).backgroundImage;
+    lbPhoto.style.backgroundImage = gradient;
+
+    lbCategory.textContent = item.querySelector('.gallery-category').textContent;
+    lbTitle.textContent    = item.querySelector('.gallery-title').textContent;
+    lbCurrent.textContent  = idx + 1;
+
+    lbPhoto.style.opacity   = '1';
+    lbPhoto.style.transform = 'scale(1)';
+  }, 120);
+}
+
+// Open lightbox when a gallery item is clicked
+galleryItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const visible = [...galleryItems].filter(i => !i.classList.contains('hidden'));
+    openLightbox(visible.indexOf(item));
+  });
+});
+
+document.querySelector('.lb-close').addEventListener('click', closeLightbox);
+lbBackdrop.addEventListener('click', closeLightbox);
+document.querySelector('.lb-prev').addEventListener('click', () => showImage(currentIndex - 1));
+document.querySelector('.lb-next').addEventListener('click', () => showImage(currentIndex + 1));
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (lightbox.hidden) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  showImage(currentIndex - 1);
+  if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+});
+
+// Touch swipe support
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) showImage(currentIndex + (diff > 0 ? 1 : -1));
+});
+
+/* ── SCROLL-REVEAL ───────────────────────────────────────── */
+const revealEls = document.querySelectorAll(
+  '#portfolio .section-header, .gallery-item, #about .about-image, #about .about-content, #contact .contact-info, .contact-form'
+);
+
+revealEls.forEach(el => el.classList.add('reveal'));
+
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.12 }
+);
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ── CONTACT FORM ────────────────────────────────────────── */
+const form        = document.getElementById('contact-form');
+const formSuccess = document.getElementById('form-success');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  let valid = true;
+  ['name', 'email', 'message'].forEach(id => {
+    const field = document.getElementById(id);
+    const empty = !field.value.trim();
+    const invalidEmail = id === 'email' && field.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+
+    if (empty || invalidEmail) {
+      field.classList.add('error');
+      valid = false;
+    } else {
+      field.classList.remove('error');
+    }
+  });
+
+  if (!valid) return;
+
+  // Simulate send
+  const submitBtn = form.querySelector('[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  setTimeout(() => {
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+    formSuccess.hidden = false;
+    setTimeout(() => { formSuccess.hidden = true; }, 5000);
+  }, 1200);
+});
+
+// Remove error state on input
+form.querySelectorAll('input, textarea').forEach(el => {
+  el.addEventListener('input', () => el.classList.remove('error'));
+});
+
+/* ── FOOTER YEAR ─────────────────────────────────────────── */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
